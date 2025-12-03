@@ -1,0 +1,4 @@
+color a (obligatorisk)
+ssh abcd1234@groucho.it.uu.se
+Ditt A-lösenord
+bsql --username="ht25_2_1dl305_group_2" --password="pasSWd_2" DBIP22024 

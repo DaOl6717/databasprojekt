@@ -20,7 +20,7 @@ insert into department (id, department_name, department_desc, parent_department)
 insert into department (id, department_name, department_desc, parent_department) values (8, 'I am 2.3', 'Call a bondulance', 2);
 
 -- Create 10 products
--- Initial product created by hand, copied nine times using AI to reduce repetetive work
+-- Initial product created by hand, copied nine times using AI to reduce repetitive work
 INSERT INTO product (id, title, product_description, stock_quantity, vat, discount, price_excl_vat, is_featured, department_id)
 VALUES (1, 'Coffee', 'Freshly brewed coffee', 100, 0.2, 0.05, 50, TRUE, 3);
 
@@ -94,7 +94,7 @@ INSERT INTO orders(
 	user_id
 )
 VALUES (1, '1234567812345678123456781234567812345678123456781234567812345678', DATE '2004-07-08', 'packing', DATE '2004-07-08', 2);
-INSERT INTO order_product (id,  order_id, product_name, product_description, price, quantity)
+INSERT INTO order_product (id, order_id, product_name, product_description, price, quantity)
 VALUES (3, 1, 'Tea', 'Spill the tea', 45, 2);
 
 

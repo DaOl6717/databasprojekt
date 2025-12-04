@@ -1,14 +1,14 @@
-CREATE TABLE department(
-    id INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS department(
+    id INT AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(50) NOT NULL,
     department_desc VARCHAR(50) NOT NULL,
     parent_department INT,
     FOREIGN KEY (parent_department) REFERENCES department(id)
 );
 
-CREATE TABLE users(
-    id INT PRIMARY KEY,
-    ssn INT UNIQUE NOT NULL,
+CREATE TABLE IF NOT EXISTS users(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ssn CHAR(13) UNIQUE NOT NULL,
     phone_number VARCHAR(13) UNIQUE NOT NULL,
     email_address VARCHAR(50) UNIQUE NOT NULL,
     user_name VARCHAR(30) NOT NULL,
@@ -16,8 +16,8 @@ CREATE TABLE users(
     allows_newsletter BOOLEAN NOT NULL
 );
 
-CREATE TABLE product(
-    id INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS product(
+    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
     product_description VARCHAR(100) NOT NULL,
     stock_quantity INT NOT NULL,
@@ -29,8 +29,8 @@ CREATE TABLE product(
     FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
-CREATE TABLE review(
-    id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS review(
+    id INT AUTO_INCREMENT NOT NULL,
     product_id INT NOT NULL,
     review_description VARCHAR(50),
     rating INT NOT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE review(
 );
 
 
-CREATE TABLE orders(
-    id INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS orders(
+    id INT AUTO_INCREMENT PRIMARY KEY,
     tracking_number INT UNIQUE,
     payment_reference CHAR(64) UNIQUE NOT NULL,
     order_date DATE NOT NULL,
@@ -54,8 +54,8 @@ CREATE TABLE orders(
     CONSTRAINT is_valid_status CHECK (order_status in ('sent', 'delivered', 'packing')) -- Borde finnas en pending ellerr nåt
 );
 
-CREATE TABLE order_product(
-    id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS order_product(
+    id INT AUTO_INCREMENT NOT NULL,
     order_id INT NOT NULL,
     product_name VARCHAR(50) NOT NULL,
     product_description VARCHAR(50) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE order_product(
     CONSTRAINT pk_order_product PRIMARY KEY (order_id, id)
 );
 
-CREATE TABLE keyword(
+CREATE TABLE IF NOT EXISTS keyword(
     keyword VARCHAR(30) NOT NULL,
     product_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES product(id),

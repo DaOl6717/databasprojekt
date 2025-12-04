@@ -1,0 +1,5 @@
+ssh abcd1234@fries.it.uu.se
+Ditt A-lösenord
+
+
+funkar inte idk why:       bsql --username="ht25_2_1dl305_group_2" --password="pasSWd_2" DBIP22024

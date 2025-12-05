@@ -9,7 +9,10 @@ def create_tables(db: Database):
         parent_department INT,
         FOREIGN KEY (parent_department) REFERENCES department(id)
     );
-        """, 
+    """,
+    """
+    CREATE INDEX idx_parent_department ON department(parent_department);
+    """,
     """
     CREATE TABLE IF NOT EXISTS users(
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,13 +30,17 @@ def create_tables(db: Database):
         title VARCHAR(50) NOT NULL,
         product_description VARCHAR(100) NOT NULL,
         stock_quantity INT NOT NULL,
-        vat DECIMAL NOT NULL,
+        vat DECIMAL(10, 2) NOT NULL,
         discount FLOAT NOT NULL DEFAULT 0,
-        price_excl_vat DECIMAL NOT NULL,
+        price_excl_vat DECIMAL(10, 2) NOT NULL,
         is_featured BOOLEAN NOT NULL,
         department_id INT NOT NULL,
-        FOREIGN KEY (department_id) REFERENCES department(id)
+        FOREIGN KEY (department_id) REFERENCES department(id),
+        CONSTRAINT is_valid_quantity CHECK (stock_quantity >= 0)
     );
+    """,
+    """
+    CREATE INDEX idx_discount ON product(discount);
     """,
     """
     CREATE TABLE IF NOT EXISTS review(
@@ -67,12 +74,13 @@ def create_tables(db: Database):
         order_id INT NOT NULL,
         product_name VARCHAR(50) NOT NULL,
         product_description VARCHAR(50) NOT NULL,
-        price DECIMAL NOT NULL,
+        price DECIMAL(10, 2) NOT NULL,
         quantity INT NOT NULL,
         product_id INT UNIQUE,
         FOREIGN KEY (order_id) REFERENCES orders(id),
         FOREIGN KEY (product_id) REFERENCES product(id),
         CONSTRAINT pk_order_product PRIMARY KEY (id, order_id)
+
     );
     """,
     """

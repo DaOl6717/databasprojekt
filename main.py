@@ -8,11 +8,19 @@ def main():
     db = Database()
     db.connect()
 
-    prune_tables(db) # optional
+    # optional. Will violate unique constraints if running tasks multiple times 
+    # without pruning.
+    prune_tables(db) 
+
     create_tables(db)
 
     task4(db)
     task5(db)
+
+    # order = 1
+    # cursor = db.cursor()
+
+    # cursor.execute("CALL add_to_order(1, 10, 1)")
 
     db.close()
 

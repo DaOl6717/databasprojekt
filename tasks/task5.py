@@ -16,13 +16,13 @@ def task5(db: Database):
     print("Homepage: ", description)
 
     ### List top level departments ###
-    query2 = "SELECT department_name, department_desc FROM department WHERE parent_department = 1"
+    query2 = "SELECT department_name, department_desc FROM department WHERE parent_department = 1;"
     cursor.execute(query2)
     root_deps = cursor.fetchall()
     print("Root departments:", root_deps)
 
     ### List featured products ###
-    query3 = "SELECT title, product_description, price_excl_vat FROM product WHERE is_featured = TRUE;"
+    query3 = "SELECT title, product_description, (price_excl_vat * (1+vat) * (1-discount)) AS price, discount, (price_excl_vat * (1+vat)) AS original_price FROM product WHERE is_featured = TRUE;"
     cursor.execute(query3)
     featured_products = cursor.fetchall()
     print("Featured products:", featured_products)
@@ -38,35 +38,17 @@ def task5(db: Database):
     JOIN product as p2 ON p2.id = pk2.product_id
     WHERE p1.id = %s AND p2.id <> p1.id;
     """
-    # -- Given a product, list all keyword-related products (TODO)
-    # CREATE PROCEDURE get_keyword_related_products(IN prod_id INT)
-    # READS SQL DATA BEGIN
-    # BEGIN
-    #     DECLARE kw VARCHAR(30);\
-    #     SELECT keyword INTO kw FROM keyword WHERE product_id = prod_id;\
-    #     SELECT product_id INTO ??? FROM keyword where kw = keyword;\
-    #     SELECT title FROM product WHERE ??? = id;\
-    # END;
     cursor.execute(query4, (product,))
     prods = cursor.fetchall()
     print("Keyword-related products:", prods)
 
     ### List products in department ###
     query5 = """
-    CREATE PROCEDURE get_dep_products(IN dep_id INT)
-    READS SQL DATA 
-    BEGIN 
-        SELECT p.*, (SELECT Avg(CAST(r.rating AS FLOAT)) 
-                    FROM review r 
-                    WHERE r.product_id=p.id) 
-                    AS Avg_rating 
-        FROM product p 
-        WHERE department_id = dep_id;
-    END;
+    CALL get_dep_products(3);
     """
     cursor.execute(query5)
     prods = cursor.fetchall()
-    print("Products in department:", root_deps)
+    print("Products in department:", prods)
 
     ### List all products on sale sorted by discount % ###
     query6 = "SELECT title, discount FROM product WHERE discount > 0 ORDER BY discount DESC;"

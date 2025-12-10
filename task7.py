@@ -77,9 +77,17 @@ def show_department_content(db, department_id):
     
     if (len(child_departments) > 0):
         list_departments(child_departments)
-    else:
+        return
+    
+    department_products = prod.list_products_in_department(department_id)
+    
+    if (len(department_products) > 0):
         department_products = prod.list_products_in_department(department_id)
-        list_department_products(department_products)     
+        list_department_products(department_products)
+    else:
+        print()
+        print(f"Department with ID '{department_id}' does not exist!")   
+        print() 
         
 def update_discount(db, product_id):
     prod = Product(db)
@@ -97,7 +105,7 @@ def prompt_action(db):
         case "1":
             # List department products or subdepartments
             department_id = prompt_department_id()
-            show_department_content(department_id)
+            show_department_content(db, department_id)
         case "2":
             product_id = prompt_product_id()
             discount = update_discount(db, product_id)
@@ -117,11 +125,6 @@ def main(db: Database):
 ║╚═╝║║║  ║║ ║║ ║║║╔╗╗║║ ╠╣║╔╗╗║╔╗║
 ║╔═╗║║╚╗ ║╚╗║╚═╝║║║║║║╚╗║║║║║║║║═╣
 ╚╝ ╚╝╚═╝ ╚═╝╚═══╝╚╝╚╝╚═╝╚╝╚╝╚╝╚══╝        
-          onomatopeia
-          oliver
-          nightmare
-        djibouti
-        david är inte cool
 """)
     while (program_running):
         prompt_action(db)

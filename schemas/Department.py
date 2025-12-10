@@ -17,6 +17,12 @@ class Department:
         self.db.commit()
         return self.cursor.lastrowid
 
+    def list_child_departments(self, department_id):
+        query = "SELECT id, department_name from department WHERE parent_department=%s"
+        self.cursor.execute(query, (department_id,))
+        child_departments = self.cursor.fetchall()
+        return child_departments
+    
     def get_by_id(self, dep_id):
         pass
 

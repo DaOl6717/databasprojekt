@@ -24,3 +24,11 @@ class Product:
 
     def list_all(self):
         pass
+    
+    def list_products_in_department(self, department_id):
+        query = "SELECT * FROM product WHERE department_id=%s"
+        self.cursor.execute(query, (department_id,))
+        
+        products = self.cursor.fetchall()
+        return products
+                                    

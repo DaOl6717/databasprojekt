@@ -59,11 +59,11 @@ def list_departments(child_departments):
         print(f"ID: {dep_id} Name: {department_name}")
     print()
 
-def list_department_products(department_products):
+def list_department_products(db, department_products):
     print()
     for (prod_id, prod_name, discount, vat, price_excl_vat) in department_products:
         price_info = (price_excl_vat, vat, discount)
-        current_price = Product.calculate_price(price_info)
+        current_price = Product.calculate_price(db, price_info)
         print(f"ID: {prod_id} Name: {prod_name} Retail Price: {round(current_price, 2)}")
     print()
 
@@ -83,7 +83,7 @@ def show_department_content(db, department_id):
     
     if (len(department_products) > 0):
         department_products = prod.list_products_in_department(department_id)
-        list_department_products(department_products)
+        list_department_products(db, department_products)
     else:
         print()
         print(f"Department with ID '{department_id}' does not exist!")   
@@ -108,6 +108,10 @@ def prompt_action(db):
             show_department_content(db, department_id)
         case "2":
             product_id = prompt_product_id()
+            # TODO: Kolla att det är ett valid input, annars fråga igen
+            # TODO: Hitta produkten
+            # TODO: Fråga om man vill ändra produktens discount
+            # TODO: Om ja, ändra produktens discount
             discount = update_discount(db, product_id)
             print(f"Updated discount to {discount}%")
             # View and edit product discount

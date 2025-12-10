@@ -35,7 +35,7 @@ class Product:
         products = self.cursor.fetchall()
         return products
 
-    def calculate_price(price_info): #price_excl_vat, vat, discount):
+    def calculate_price(self, price_info): #price_excl_vat, vat, discount):
         price_info = map(float, price_info)
         price_excl_vat, vat, discount = price_info
         return (price_excl_vat * (1 + vat) * (1 - discount))

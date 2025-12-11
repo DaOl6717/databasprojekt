@@ -7,7 +7,6 @@
 # discount)
 # if the given department is a leaf department, otherwise lists all its child departments (outputting
 # the ID and the title).
-# TODO vvvvvvvvv
 # Create another program which asks for a product ID, shows the current discount and allows the user to
 # change it.
 # Please also submit your programming code as separate files (i.e. your “...py” or “...java” files) together
@@ -75,11 +74,10 @@ def show_product(db, product_id):
     products = prod.fetch_product(product_id)
     
     if (products):
-        # title, product_description, stock_quantity, 3vat, 4discount, 5price_excl_vat, is_featured, department_id)
-        #price_excl_vat, vat, discount):
-        price = prod.calculate_price((products[5], products[3], products[4]))
+        # id, title, product_description, stock_quantity, 3vat, 4discount, 5price_excl_vat, is_featured, department_id)
+        price = prod.calculate_price((products[6], products[4], products[5]))
 
-        print(f"Name: {products[0]} Product description: {products[1]} Stock Quantity: {products[2]} Price: {price} Discount: {products[4]*100}%")
+        print(f"Name: {products[1]} Product description: {products[2]} Stock Quantity: {products[3]} Price: {round(price, 2)} Discount: {round(products[5]*100, 2)}%")
         return True
     else:
         print()
@@ -109,7 +107,6 @@ def show_department_content(db, department_id):
 def update_discount(db, product_id):
     prod = Product(db)
     new_discount = prompt_discount()/100
-    print(new_discount) # TODO: Remove
 
     prod.update_discount(product_id, new_discount)
     return int(new_discount*100)

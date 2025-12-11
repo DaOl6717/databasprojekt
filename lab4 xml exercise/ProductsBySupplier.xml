@@ -1,0 +1,63 @@
+<goods>
+	<entry id="1">
+		<category>Desktop</category>
+		<name>Bell Altitude Decision Pro Max Premium Plus Plus</name>
+		<description>Computer made for professionals on the run</description>
+		<price>20000</price>								<!-- Without VAT -->
+		<discount>15</discount>								<!-- In percentage points -->
+		<vat>25</vat>										<!-- In percentage points -->
+		<quantity>20</quantity>
+		<keywords>Workstation,Computer,Desktop</keywords>	<!-- Separated by a comma -->
+	</entry>
+	<entry id="2">
+		<category>Laptop</category>
+		<name>Winovo Thinkpod P16</name>
+		<description>Laptop made for professionals in hiding</description>
+		<price>10000</price>								<!-- Without VAT -->
+		<discount>20</discount>								<!-- In percentage points -->
+		<vat>25</vat>										<!-- In percentage points -->
+		<quantity>10</quantity>
+		<keywords>Computer,Laptop,Winovo</keywords>			<!-- Separated by a comma -->
+	</entry>
+	<entry id="3">
+		<category>Tablet</category>
+		<name>Samething Universe X5 Tab</name>
+		<description>Tablet made for unprofessionals</description>
+		<price>5000</price>									<!-- Without VAT -->
+		<discount>20</discount>								<!-- In percentage points -->
+		<vat>25</vat>										<!-- In percentage points -->
+		<quantity>100</quantity>
+		<keywords>Tablet,Universe,Professional</keywords>	<!-- Separated by a comma -->
+	</entry>
+	<entry id="4">
+		<category>Tablet</category>
+		<name>Essentially Nothing</name>
+		<description>Nothing</description>
+		<price>10000</price>									<!-- Without VAT -->
+		<discount>15</discount>								<!-- In percentage points -->
+		<vat>25</vat>										<!-- In percentage points -->
+		<quantity>0</quantity>
+		<keywords>Nothing</keywords>						<!-- Separated by a comma -->
+	</entry>
+	<entry id="5">
+		<category>Tablet</category>
+		<name>Unfair Tablet</name>
+		<description>Tablet for those who don't like to play fair</description>
+		<price>50000</price>									<!-- Without VAT -->
+		<discount>5</discount>								<!-- In percentage points -->
+		<vat>25</vat>										<!-- In percentage points -->
+		<quantity>10</quantity>
+		<keywords>Tablet,Unfair,Fair</keywords>				<!-- Separated by a comma -->
+	</entry>
+	<entry id="6">
+		<category>Laptop</category>
+		<name>Potato iHack Wind</name>
+		<description>Our cheapest laptop for value oriented customers who like a little extra breeze</description>
+		<price>5000000</price>								<!-- Without VAT -->
+		<!-- <specs>CPU: 0.5 GHz, RAM: 1 Potato Stick</specs> -->
+		<discount>11</discount>								<!-- In percentage points -->
+		<vat>25</vat>										<!-- In percentage points -->
+		<quantity>25</quantity>
+		<keywords>Potato,Wind,Laptop</keywords>			<!-- Separated by a comma -->
+	</entry>
+</goods>

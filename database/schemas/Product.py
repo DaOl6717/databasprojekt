@@ -17,10 +17,16 @@ class Product:
         return self.cursor.fetchone()
 
     def update_discount(self, product_id, new_discount):
+
+        nd = float(new_discount)
+        if nd > 1:
+            nd = nd / 100.0
+
+        nd = max(0, min(1, nd))
         query = "UPDATE product SET discount=%s WHERE id=%s"
-        self.cursor.execute(query, (new_discount, product_id))
+        self.cursor.execute(query, (nd, product_id))
         self.db.commit()
-        return self.cursor.lastrowid
+        return nd
 
     def delete(self, product_id):
         pass
@@ -36,7 +42,10 @@ class Product:
         return products
 
     def calculate_price(self, price_info): #price_excl_vat, vat, discount):
-        price_info = map(float, price_info)
-        price_excl_vat, vat, discount = price_info
+        price_excl_vat, vat, discount = map(float, price_info)
+
+        if discount > 1:
+            discount = discount / 100.0
+
         return (price_excl_vat * (1 + vat) * (1 - discount))
     

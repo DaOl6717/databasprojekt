@@ -29,6 +29,9 @@ def list_price(product):
 def list_menu_options():
     return "[1] List department products/subdepartments", "[2] View and edit product discount"
 
+def list_change_options():
+    return "[1] Yes", "[2] No"
+
 def prompt(prompt, retry_prompt, validation_func, convert_func):
     input_id = None
     while not validation_func(input_id := input(prompt)):
@@ -67,8 +70,17 @@ def list_department_products(db, department_products):
         print(f"ID: {prod_id} Name: {prod_name} Retail Price: {round(current_price, 2)}")
     print()
 
-def show_product(product):
-    print(product) 
+def show_product(db, product_id):
+    prod: Product = Product(db)
+    products = prod.fetch_product(product_id)
+    
+    if (products):
+        title, product_description, stock_quantity, vat, discount, price_excl_vat, is_featured, department_id)
+        print(f"Name: {products[0]} Product desctiption: {products[1]} Stock Quantity: {products[2]} Price: Discount: ") #TODO
+    else:
+        print()
+        print(f"Product with ID '{product_id}' does not exist!")   
+        print()
 
 def show_department_content(db, department_id):
     dep: Department = Department(db)
@@ -96,6 +108,25 @@ def update_discount(db, product_id):
     prod.update_discount(product_id, new_discount)
     return int(new_discount*100)
 
+def bool_change_prod(product_name):
+    print()
+    print(f"Would you like to change the discount of '{product_name}'?")
+    print(*list_change_options(), sep="\n")
+    choice = input()
+    
+    match choice:
+        case "0":
+            return False
+        case "1":
+            return True
+        case _:
+            print(f"The only valid options is 1 or 2, you chose a non-valid option ({choice}).")
+            bool_change_prod(product_name)
+
+def change_product(product_name):
+    print()
+    
+
 def prompt_action(db):
     print(*list_menu_options(), sep="\n")
     print()
@@ -108,6 +139,7 @@ def prompt_action(db):
             show_department_content(db, department_id)
         case "2":
             product_id = prompt_product_id()
+            show_product(product_id)
             # TODO: Kolla att det är ett valid input, annars fråga igen
             # TODO: Hitta produkten
             # TODO: Fråga om man vill ändra produktens discount
@@ -117,7 +149,7 @@ def prompt_action(db):
             # View and edit product discount
             pass
         case _:
-            print(f"The only valid options is 1 or 2, you chose {choice}, you pleb.")
+            print(f"The only valid options is 1 or 2, you chose a non-valid option ({choice}).")
             
 def main(db: Database):
     program_running = True

@@ -14,12 +14,7 @@
 # well.
 
 from database.schemas.Department import Department
-from database.schemas.Keyword import Keyword
-from database.schemas.OrderProduct import OrderProduct
-from database.schemas.Orders import Orders
 from database.schemas.Product import Product
-from database.schemas.Review import Review
-from database.schemas.Users import Users
 from database.Database import Database
 
 def list_menu_options():

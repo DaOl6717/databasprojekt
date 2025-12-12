@@ -8,12 +8,4 @@ class OrderProduct:
     def add_order_product(self, order_id, product_name, description, price, quantity, product_id=None):
         self.cursor.execute("""INSERT INTO order_product (order_id, product_name, product_description, price, quantity, product_id)
                             VALUES (%s, %s, %s, %s, %s);""", (order_id, product_name, description, price, quantity, product_id))
-        
-        self.db.commit()
-        return self.cursor.lastrowid
-
-    def list_by_order(self, order_id):
-        pass
-
-    def remove(self, order_product_id):
-        pass
+    

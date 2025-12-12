@@ -22,15 +22,3 @@ class Department:
         self.cursor.execute(query, (department_id,))
         child_departments = self.cursor.fetchall()
         return child_departments
-    
-    def get_by_id(self, dep_id):
-        pass
-
-    def update(self, dep_id, **fields):
-        pass
-
-    def delete(self, dep_id):
-        pass
-
-    def list_all(self):
-        pass

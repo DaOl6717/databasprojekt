@@ -10,15 +10,3 @@ class Orders:
         
         self.db.commit()
         return self.cursor.lastrowid
-
-    def get_by_id(self, order_id):
-        pass
-
-    def update_status(self, order_id, new_status):
-        pass
-
-    def delete(self, order_id):
-        pass
-
-    def list_all(self):
-        pass

@@ -22,14 +22,13 @@ from database.schemas.Review import Review
 from database.schemas.Users import Users
 from database.Database import Database
 
-def list_price(product):
-    pass
-
 def list_menu_options():
     return "[1] List department products/subdepartments", "[2] View and edit product discount"
 
+
 def list_change_options():
     return "[1] Yes", "[2] No"
+
 
 def prompt(prompt, retry_prompt, validation_func, convert_func):
     input_id = None
@@ -38,6 +37,7 @@ def prompt(prompt, retry_prompt, validation_func, convert_func):
     
     return convert_func(input_id)
 
+
 def prompt_id(prompt_a, validation_func, convert_func):
     return prompt(prompt_a, "Please select a valid ID!", validation_func, convert_func)
 
@@ -45,12 +45,15 @@ def prompt_id(prompt_a, validation_func, convert_func):
 def prompt_department_id():
     return prompt_id("Input the department ID: ", str.isnumeric, int)
 
+
 def prompt_product_id():
     return prompt_id("Please select a product ID: ", str.isnumeric, int)
 
+
 def validate_discount(n):
     return n.isnumeric() and 0 <= int(n) <= 100
-    
+
+
 def prompt_discount():
     return prompt("Select a new discount percentage:", "Please select a valid discount!", validate_discount, int)
     
@@ -61,6 +64,7 @@ def list_departments(child_departments):
         print(f"ID: {dep_id} Name: {department_name}")
     print()
 
+
 def list_department_products(db, department_products):
     print()
     for (prod_id, prod_name, discount, vat, price_excl_vat) in department_products:
@@ -69,12 +73,12 @@ def list_department_products(db, department_products):
         print(f"ID: {prod_id} Name: {prod_name} Retail Price: {round(current_price, 2)}")
     print()
 
+
 def show_product(db, product_id):
     prod: Product = Product(db)
     products = prod.fetch_product(product_id)
     
     if (products):
-        # id, title, product_description, stock_quantity, 3vat, 4discount, 5price_excl_vat, is_featured, department_id)
         price = prod.calculate_price((products[6], products[4], products[5]))
 
         print(f"Name: {products[1]} Product description: {products[2]} Stock Quantity: {products[3]} Price: {round(price, 2)} Discount: {round(products[5]*100, 2)}%")
@@ -84,6 +88,7 @@ def show_product(db, product_id):
         print(f"Product with ID '{product_id}' does not exist!")   
         print()
         return False
+
 
 def show_department_content(db, department_id):
     dep: Department = Department(db)
@@ -104,6 +109,7 @@ def show_department_content(db, department_id):
         print(f"Department with ID '{department_id}' does not exist!")   
         print() 
         
+
 def update_discount(db, product_id):
     prod = Product(db)
     new_discount = prompt_discount()/100
@@ -111,9 +117,6 @@ def update_discount(db, product_id):
     prod.update_discount(product_id, new_discount)
     return int(new_discount*100)
 
-def change_product(product_name):
-    print()
-    
 
 def prompt_action(db):
     print(*list_menu_options(), sep="\n")
@@ -125,10 +128,12 @@ def prompt_action(db):
             # List department products or subdepartments
             department_id = prompt_department_id()
             show_department_content(db, department_id)
+            return True
         case "2":
+            # View and change discount for a product
             product_id = prompt_product_id()
             if not show_product(db, product_id):
-                return
+                return True
             print()            
             choice = prompt("Would you like to change the discount for this product? (1 for yes, 2 for no)", "The only valid options are 1 or 2, you chose a non-valid option", lambda x: x in ["1", "2"], lambda x: x)
 
@@ -137,11 +142,13 @@ def prompt_action(db):
                     discount = update_discount(db, product_id)
                     print(f"Updated discount to {discount}%")
                 case "2":
-                    return
-            pass
+                    return True
+        case "3":
+            return False
         case _:
-            print(f"The only valid options is 1 or 2, you chose a non-valid option ({choice}).")
+            print(f"The only valid options is 1, 2, or 3, you chose a non-valid option ({choice}).")
             
+
 def main(db: Database):
     program_running = True
     
@@ -154,7 +161,7 @@ def main(db: Database):
 ╚╝ ╚╝╚═╝ ╚═╝╚═══╝╚╝╚╝╚═╝╚╝╚╝╚╝╚══╝        
 """)
     while (program_running):
-        prompt_action(db)
+        program_running = prompt_action(db)
 
 if __name__ == "__main__":
     db = Database()

@@ -11,12 +11,3 @@ class Review:
         
         self.db.commit()
         return self.cursor.lastrowid
-
-    def get_by_id(self, review_id):
-        pass
-
-    def list_by_product(self, product_id):
-        pass
-
-    def delete(self, review_id):
-        pass

@@ -28,12 +28,6 @@ class Product:
         self.db.commit()
         return nd
 
-    def delete(self, product_id):
-        pass
-
-    def list_all(self):
-        pass
-
     def list_products_in_department(self, department_id):
         query = "SELECT id, title, vat, discount, price_excl_vat FROM product WHERE department_id=%s"
         self.cursor.execute(query, (department_id,))

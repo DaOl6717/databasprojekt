@@ -1,11 +1,6 @@
 import pymysql
 import getpass
 from sshtunnel import SSHTunnel
-import base64
-
-def get_credentials():
-	credentials = [i.decode('ascii') for i in  base64.b64decode(open("hemlig_(endast_oliver).txt", 'r').read().strip()).strip().split()]
-	return credentials
 
 class Database:
 	def __init__(self):
@@ -21,12 +16,9 @@ class Database:
 
 		# self.cursor.close()
 
-	def connect(self, manual_credentials=False):
-		if manual_credentials:
-			ssh_username = input("Enter your Studium username: ")
-			ssh_password = getpass.getpass("Enter your Studium password A: ")
-		else:
-			ssh_username, ssh_password = get_credentials()
+	def connect(self):
+		ssh_username = input("Enter your Studium username: ")
+		ssh_password = getpass.getpass("Enter your Studium password A: ")
 
 		self.tunnel = SSHTunnel(
 			ssh_username, ssh_password, 
